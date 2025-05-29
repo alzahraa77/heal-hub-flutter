@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -70,8 +69,8 @@ const Clinics = () => {
   const filteredClinics = clinics.filter(clinic => {
     const matchesSearch = clinic.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          clinic.specialty.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesSpecialty = !selectedSpecialty || clinic.specialty === selectedSpecialty;
-    const matchesLocation = !selectedLocation || clinic.location === selectedLocation;
+    const matchesSpecialty = !selectedSpecialty || selectedSpecialty === "all" || clinic.specialty === selectedSpecialty;
+    const matchesLocation = !selectedLocation || selectedLocation === "all" || clinic.location === selectedLocation;
     
     return matchesSearch && matchesSpecialty && matchesLocation;
   });
@@ -117,7 +116,7 @@ const Clinics = () => {
                   <SelectValue placeholder="Specialty" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Specialties</SelectItem>
+                  <SelectItem value="all">All Specialties</SelectItem>
                   {specialties.map(specialty => (
                     <SelectItem key={specialty} value={specialty}>{specialty}</SelectItem>
                   ))}
@@ -129,7 +128,7 @@ const Clinics = () => {
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Locations</SelectItem>
+                  <SelectItem value="all">All Locations</SelectItem>
                   {locations.map(location => (
                     <SelectItem key={location} value={location}>{location}</SelectItem>
                   ))}
